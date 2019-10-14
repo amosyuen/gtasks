@@ -41,7 +41,7 @@ class GtasksBinarySensor(BinarySensorDevice):
         passed_list = self.hass.data[DOMAIN_DATA].get("passed_list", None)
         data = []
         # Check the data and update the value.
-        if passed_list is None:
+        if not passed_list or passed_list is None:
             self._status = self._status
         else:
             for task in passed_list:
