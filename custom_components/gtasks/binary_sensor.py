@@ -42,7 +42,7 @@ class GtasksBinarySensor(BinarySensorDevice):
         data = []
         # Check the data and update the value.
         if not passed_list or passed_list is None:
-            self._status = self._status
+            self._status = False
         else:
             for task in passed_list:
                 dict = {}
