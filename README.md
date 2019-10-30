@@ -25,7 +25,6 @@ custom_components/gtasks/config_flow.py
 custom_components/gtasks/const.py
 custom_components/gtasks/manifest.json
 custom_components/gtasks/sensor.py
-custom_components/gtasks/switch.py
 ```
 
 ## Example configuration.yaml
