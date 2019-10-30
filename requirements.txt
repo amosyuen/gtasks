@@ -1,2 +1,3 @@
 integrationhelper
-sampleclient
+gtasks2
+keyrings.alt
