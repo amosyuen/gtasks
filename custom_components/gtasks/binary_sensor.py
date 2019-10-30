@@ -1,6 +1,7 @@
 """Binary sensor platform for gtasks."""
 from homeassistant.components.binary_sensor import BinarySensorDevice
 from datetime import timedelta, date
+from uuid import getnode as get_mac
 
 from .const import (
     ATTRIBUTION,
@@ -31,6 +32,7 @@ class GtasksBinarySensor(BinarySensorDevice):
         self._status = False
         self._list = hass.data[DOMAIN_DATA]["default_list"]
         self._name = '{}_{}'.format(config.get("name", DEFAULT_NAME),self._list)
+        self._unique_id = '{}-{}'.format(get_mac() , self._name)
 
     async def async_update(self):
         """Update the binary_sensor."""
@@ -60,9 +62,7 @@ class GtasksBinarySensor(BinarySensorDevice):
     @property
     def unique_id(self):
         """Return a unique ID to use for this binary_sensor."""
-        return (
-            "198ae5f6-1743-4f9c-8fb6-4086b4fba2d2"
-        )
+        return self._unique_id
 
     @property
     def device_info(self):
