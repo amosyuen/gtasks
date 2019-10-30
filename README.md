@@ -1,5 +1,5 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/blueblueblob/gtasks/badge)](https://www.codefactor.io/repository/github/blueblueblob/gtasks)
-
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 
 
 
