@@ -1,0 +1,6 @@
+{
+  "name": "Google Tasks",
+  "render_readme": true,
+  "country": "EU",
+  "iot_class": "Cloud Push"
+}
