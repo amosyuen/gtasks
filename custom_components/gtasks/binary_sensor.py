@@ -8,6 +8,7 @@ from .const import (
     DEFAULT_NAME,
     DOMAIN_DATA,
     DOMAIN,
+    CONF_BINARY_SENSOR,
 )
 
 
@@ -32,7 +33,7 @@ class GtasksBinarySensor(BinarySensorDevice):
         self._status = False
         self._list = hass.data[DOMAIN_DATA]["default_list"]
         self._name = '{}_{}'.format(config.get("name", DEFAULT_NAME),self._list)
-        self._unique_id = '{}-{}'.format(get_mac() , self._name)
+        self._unique_id = '{}-{}-{}'.format(get_mac() , CONF_BINARY_SENSOR, self._name)
 
     async def async_update(self):
         """Update the binary_sensor."""

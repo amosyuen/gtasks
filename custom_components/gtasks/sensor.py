@@ -10,6 +10,7 @@ from .const import (
     ICON,
     DOMAIN,
     SENSOR_UNIT_OF_MEASUREMENT,
+    CONF_SENSOR,
 )
 
 from datetime import datetime, timedelta
@@ -35,7 +36,7 @@ class GtasksSensor(Entity):
         self._state = None
         self._list = hass.data[DOMAIN_DATA]["default_list"]
         self._name = '{}_{}'.format(config.get("name", DEFAULT_NAME),self._list)
-        self._unique_id = '{}-{}'.format(get_mac() , self._name)
+        self._unique_id = '{}-{}-{}'.format(get_mac() , CONF_SENSOR, self._name)
 
     async def async_update(self):
         """Update the sensor."""
