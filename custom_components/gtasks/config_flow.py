@@ -5,9 +5,8 @@ import asyncio
 import logging
 import voluptuous as vol
 
-from gtasks2 import Gtasks
-
 from homeassistant import config_entries
+from gtasks_api import GtasksAPI
 
 from homeassistant.util.json import load_json
 
@@ -25,14 +24,17 @@ class GtasksFlowHandler(config_entries.ConfigFlow):
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
     
     def __init__(self):
-        
+        _LOGGER.info('{}'.format(self.hass))
         self._auth_url = "" 
+        
 
     async def async_step_init(self, user_input=None):
         """Initialize."""
         self._errors = {}
-        
-        _LOGGER.info("init config flow")
+        self.token_file = self.hass.data[DOMAIN_DATA]["token_file"]
+        self.creds = self.hass.data[DOMAIN_DATA]["creds"]
+        self.default_list = self.hass.data[DOMAIN_DATA]["default_list"]
+        _LOGGER.debug("init config flow")
         
         
         if self._async_current_entries():
@@ -40,7 +42,16 @@ class GtasksFlowHandler(config_entries.ConfigFlow):
         if self.hass.data.get(DOMAIN):
             return self.async_abort(reason="single_instance_allowed")
             
-            
+        try:
+            self.hass.data[DOMAIN_DATA]["gtasks_obj"] = GtasksAPI(self.creds, self.token_file)
+            if self.hass.data[DOMAIN_DATA]["gtasks_obj"].auth_url:
+                self._auth_url = self.hass.data[DOMAIN_DATA]["gtasks_obj"].auth_url
+            else:
+                return self.async_create_entry(title="Connected", data={})
+        except Exception as e:
+            _LOGGER.exception(e)
+            raise e
+                
         return await self.async_step_link(user_input)
         
     async def async_step_user(self, user_input=None):
@@ -49,8 +60,8 @@ class GtasksFlowHandler(config_entries.ConfigFlow):
         
     async def async_step_link(self, user_input=None):
         
-        url = self.hass.data[DOMAIN_DATA]["auth_url"]
-        _LOGGER.info('url : {}'.format(url))
+        url = self._auth_url
+        _LOGGER.debug('url : {}'.format(url))
         if not url:
             return self.async_create_entry(title="Connected", data={})
         

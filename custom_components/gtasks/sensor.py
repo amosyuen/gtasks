@@ -1,6 +1,6 @@
 """Sensor platform for Gtasks."""
 from homeassistant.helpers.entity import Entity
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from uuid import getnode as get_mac
 
 from .const import (
@@ -41,20 +41,20 @@ class GtasksSensor(Entity):
     async def async_update(self):
         """Update the sensor."""
         # Send update "signal" to the component
-        await self.hass.data[DOMAIN_DATA]["client"].get_tasks()
+        await self.hass.data[DOMAIN_DATA]["client"].update_data()
 
         # Get new data (if any)
-        task_list = self.hass.data[DOMAIN_DATA].get("tasks_list", None)
+        task_list = self.hass.data[DOMAIN_DATA].get(CONF_SENSOR + "_data", None)
         data = []
         # Check the data and update the value.
         if task_list is None:
             self._state = self._state
         else:
             self._state = len(task_list)
-            for t in task_list:
+            for task in task_list:
                 jtask = {}
-                jtask["task_title"] = '{}'.format(t.title)
-                jtask["due_date"] = '{}'.format(t.due_date)
+                jtask["task_title"] = '{}'.format(task['title'])
+                jtask["due_date"] = datetime.strftime(datetime.strptime(task['due'], '%Y-%m-%dT00:00:00.000Z').date(), '%Y-%m-%d')
                 data.append(jtask)
 
         # Set/update attributes

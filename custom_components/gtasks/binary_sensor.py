@@ -1,6 +1,6 @@
 """Binary sensor platform for gtasks."""
 from homeassistant.components.binary_sensor import BinarySensorDevice
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from uuid import getnode as get_mac
 
 from .const import (
@@ -38,10 +38,10 @@ class GtasksBinarySensor(BinarySensorDevice):
     async def async_update(self):
         """Update the binary_sensor."""
         # Send update "signal" to the component
-        await self.hass.data[DOMAIN_DATA]["client"].have_tasks_passed()
+        await self.hass.data[DOMAIN_DATA]["client"].update_data()
 
         # Get new data (if any)
-        passed_list = self.hass.data[DOMAIN_DATA].get("passed_list", None)
+        passed_list = self.hass.data[DOMAIN_DATA].get(CONF_BINARY_SENSOR + "_data", None)
         data = []
         # Check the data and update the value.
         if not passed_list or passed_list is None:
@@ -49,9 +49,9 @@ class GtasksBinarySensor(BinarySensorDevice):
         else:
             for task in passed_list:
                 dict = {}
-                dict['taskt_title'] = '{}'.format(task.title)
-                dict['due_data'] = '{}'.format(task.due_date)
-                tdelta = date.today() - task.due_date
+                dict['taskt_title'] = '{}'.format(task['title'])
+                dict['due_date'] = datetime.strftime(datetime.strptime(task['due'], '%Y-%m-%dT00:00:00.000Z').date(), '%Y-%m-%d')
+                tdelta = date.today() - datetime.strptime(task['due'], '%Y-%m-%dT00:00:00.000Z').date()
                 dict['days_overdue'] = tdelta.days
                 data.append(dict)
             self._status = True

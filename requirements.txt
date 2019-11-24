@@ -1,3 +1,2 @@
 integrationhelper
-gtasks2
-keyrings.alt
+gtasks-api

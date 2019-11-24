@@ -2,7 +2,7 @@
 # Base component constants
 DOMAIN = "gtasks"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 PLATFORMS = ["sensor", "binary_sensor"]
 REQUIRED_FILES = [
     ".translations/en.json",
@@ -28,7 +28,7 @@ CONF_SENSOR = "sensor"
 CONF_NAME = "name"
 CONF_CREDENTIALS_LOCATION = "credentials_location"
 CONF_DEFAULT_LIST = "default_list"
-CONF_FORCE_LOGIN = "force_login"
+CONF_TOKEN_FILE = "token_location"
 
 # Defaults
 DEFAULT_NAME = DOMAIN
@@ -36,10 +36,8 @@ DEFAULT_NAME = DOMAIN
 #Services attributes
 ATTR_TASK_TITLE = "task_title"
 ATTR_DUE_DATE = "due_date"
-ATTR_LIST_TITLE = "list_title"
 
 #Services names
 SERVICE_NEW_TASK = "new_task"
-SERVICE_NEW_LIST = "new_list"
 SERVICE_COMPLETE_TASK = "complete_task"
 

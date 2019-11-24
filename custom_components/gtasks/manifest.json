@@ -8,8 +8,7 @@
     "@BlueBlueBlob"
   ],
   "requirements": [
-    "keyrings.alt",
-    "gtasks2==0.2.2",
+    "gtasks_api==0.0.7",
     "integrationhelper"
   ],
   "homeassistant": "0.96.0"
