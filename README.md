@@ -34,6 +34,6 @@ custom_components/gtasks/sensor.py
 gtasks:
   credentials_location: path/credentials.json
   default_list: 'My corves list'
-  force_login: false
+  token_file: /config/token.pickle
 ```
 

@@ -5,7 +5,7 @@ For more details about this component, please refer to
 https://github.com/BlueBlueBlob/gtasks
 """
 import os
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 import logging
 import voluptuous as vol
 from homeassistant import config_entries
@@ -23,6 +23,7 @@ from .const import (
     CONF_NAME,
     CONF_SENSOR,
     DEFAULT_NAME,
+    DEFAULT_TOKEN_LOCATION,
     DOMAIN_DATA,
     DOMAIN,
     ISSUE_URL,
@@ -72,8 +73,8 @@ CONFIG_SCHEMA = vol.Schema(
         DOMAIN: vol.Schema(
             {
                 vol.Required(CONF_CREDENTIALS_LOCATION): cv.string,
-                vol.Required(CONF_TOKEN_FILE): cv.string,
-                vol.Required(CONF_DEFAULT_LIST, default=None): cv.string,
+                vol.Required(CONF_DEFAULT_LIST): cv.string,
+                vol.Optional(CONF_TOKEN_FILE, default = DEFAULT_TOKEN_LOCATION): cv.string,
             }
         )
     },
@@ -156,11 +157,11 @@ async def async_setup_entry(hass, config_entry):
         task = {}
         task['title'] = title
         if due_date:
-            task['due'] = datetime.strftime(due_date, '%Y-%m-%dT00:00:00.000Z')
-        client = hass.data[DOMAIN_DATA]["client"]
-        service = client._service
+             task['due'] = datetime.strftime(due_date, '%Y-%m-%dT00:00:00.000Z')
+
+        _LOGGER.debug('task : {}'.format(task))
         try:
-            service.tasks().insert(task_list = client.default_list_id, body = task)
+            client._service.tasks().insert(tasklist=client.default_list_id, body=task).execute()
         except Exception as e:
             _LOGGER.exception(e)
             

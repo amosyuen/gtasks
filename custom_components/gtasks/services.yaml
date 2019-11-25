@@ -5,13 +5,10 @@ new_task:
       description: "The task title"
       example: 'have to do something'
     due_date:
-      example: '2019-03-26'
+      example: '2019-12-26'
       
 complete_task:
   description: Executes the given chore with an optional timestamp and executor
   fields:
     task_title:
       example: 'tasks to complete'
-    task_list:
-      example: 'Tasks list'
-

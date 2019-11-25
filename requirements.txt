@@ -1,2 +1,2 @@
 integrationhelper
-gtasks-api
+gtasks_api

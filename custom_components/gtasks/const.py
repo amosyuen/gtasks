@@ -32,6 +32,7 @@ CONF_TOKEN_FILE = "token_location"
 
 # Defaults
 DEFAULT_NAME = DOMAIN
+DEFAULT_TOKEN_LOCATION = '/config/token.pickle'
 
 #Services attributes
 ATTR_TASK_TITLE = "task_title"
