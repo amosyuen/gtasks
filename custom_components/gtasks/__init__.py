@@ -215,13 +215,13 @@ class GtasksData:
         tag_binary = CONF_BINARY_SENSOR + "_data"
         try:
             tasks_list_sensor = await self.hass.async_add_executor_job(request_sensor.execute)
-            self.hass.data[DOMAIN_DATA][tag_sensor] = tasks_list_sensor['items']
+            self.hass.data[DOMAIN_DATA][tag_sensor] = tasks_list_sensor.get('items', None)
             _LOGGER.debug('tasks_list : {}'.format(tasks_list_sensor))
         except Exception as e:
             _LOGGER.exception(e) 
         try:
             tasks_list_binary = await self.hass.async_add_executor_job(request_binary_sensor.execute)
-            self.hass.data[DOMAIN_DATA][tag_binary] = tasks_list_binary['items']
+            self.hass.data[DOMAIN_DATA][tag_binary] = tasks_list_binary.get('items', None)
             _LOGGER.debug('tasks_list : {}'.format(tasks_list_binary))
         except Exception as e:
             _LOGGER.exception(e)
