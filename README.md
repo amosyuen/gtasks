@@ -10,8 +10,8 @@
 3. In the `custom_components` directory (folder) create a new folder called `gtasks`.
 4. Download _all_ the files from the `custom_components/gtasks/` directory (folder) in this repository.
 5. Place the files you downloaded in the new directory (folder) you created.
-6. Restart Home Assistant
-7. Setup your configuration.yaml file, see exemple below 
+6. Setup your configuration.yaml file, see exemple below
+7. Restart Home Assistant
 8. Choose:
    - Add `gtasks:` to your HA configuration.
    - In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Google Tasks"
@@ -34,6 +34,6 @@ custom_components/gtasks/sensor.py
 gtasks:
   credentials_location: path/credentials.json
   default_list: 'My corves list'
-  token_file: /config/token.pickle
+  token_location: /config/token.pickle
 ```
 
