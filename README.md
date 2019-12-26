@@ -12,9 +12,7 @@
 5. Place the files you downloaded in the new directory (folder) you created.
 6. Setup your configuration.yaml file, see exemple below
 7. Restart Home Assistant
-8. Choose:
-   - Add `gtasks:` to your HA configuration.
-   - In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Google Tasks"
+8. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Google Tasks"
 
 Using your HA configuration directory (folder) as a starting point you should now also have this:
 
