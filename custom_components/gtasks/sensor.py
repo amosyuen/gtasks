@@ -54,7 +54,8 @@ class GtasksSensor(Entity):
             for task in task_list:
                 jtask = {}
                 jtask["task_title"] = '{}'.format(task['title'])
-                jtask["due_date"] = datetime.strftime(datetime.strptime(task['due'], '%Y-%m-%dT00:00:00.000Z').date(), '%Y-%m-%d')
+                if 'due' in task:
+                    jtask["due_date"] = datetime.strftime(datetime.strptime(task['due'], '%Y-%m-%dT00:00:00.000Z').date(), '%Y-%m-%d')
                 data.append(jtask)
 
         # Set/update attributes
