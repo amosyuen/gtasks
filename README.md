@@ -2,6 +2,8 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 
 
+## Before installation
+Create a create a credentials.json from [Google API](https://console.developers.google.com/apis/credentials)
 
 ## Installation
 
@@ -10,9 +12,11 @@
 3. In the `custom_components` directory (folder) create a new folder called `gtasks`.
 4. Download _all_ the files from the `custom_components/gtasks/` directory (folder) in this repository.
 5. Place the files you downloaded in the new directory (folder) you created.
-6. Setup your configuration.yaml file, see exemple below
+6. Upload your credentials.json file as configured in your configuration.yaml
 7. Restart Home Assistant
 8. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Google Tasks"
+9. Copy paste authentication url in your browser (don't need to be on host)
+10. Authenticate and copy paste the result code in HA to finish integration.
 
 Using your HA configuration directory (folder) as a starting point you should now also have this:
 
@@ -25,13 +29,3 @@ custom_components/gtasks/const.py
 custom_components/gtasks/manifest.json
 custom_components/gtasks/sensor.py
 ```
-
-## Example configuration.yaml
-
-```yaml
-gtasks:
-  credentials_location: path/credentials.json
-  default_list: 'My corves list'
-  token_location: /config/token.pickle
-```
-
