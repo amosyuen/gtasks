@@ -2,7 +2,7 @@
 # Base component constants
 DOMAIN = "gtasks"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "0.3.3"
+VERSION = "0.4.0"
 PLATFORMS = ["sensor", "binary_sensor"]
 REQUIRED_FILES = [
     ".translations/en.json",
@@ -27,18 +27,20 @@ CONF_BINARY_SENSOR = "binary_sensor"
 CONF_SENSOR = "sensor"
 CONF_NAME = "name"
 CONF_CREDENTIALS_LOCATION = "credentials_location"
-CONF_DEFAULT_LIST = "default_list"
-CONF_TOKEN_FILE = "token_location"
+CONF_TASKS_LISTS = "tasks_lists"
+CONF_TOKEN_PATH = "token_location"
+CONF_TOKEN_NAME = 'token.pickle'
 
 # Defaults
 DEFAULT_NAME = DOMAIN
-DEFAULT_TOKEN_LOCATION = '/config/token.pickle'
+DEFAULT_TOKEN_LOCATION = '/config'
+
 
 #Services attributes
 ATTR_TASK_TITLE = "task_title"
 ATTR_DUE_DATE = "due_date"
+ATTR_TASKS_LIST = "tasks_list"
 
 #Services names
 SERVICE_NEW_TASK = "new_task"
 SERVICE_COMPLETE_TASK = "complete_task"
-

@@ -2,11 +2,27 @@
     "config": {
         "title": "Google Tasks",
         "step": {
-            "link": {
+            "auth": {
                 "title": "Authentication",
                 "description": "Do authentication on this {url} and paste the authentication code",
                 "data": {
                     "auth_code": "Authorization return code"
+                }
+              },
+            "config": {
+                "title": "Set up Component",
+                "description": "Your credentials json file need to be uploaded before",
+                "data": {
+                     "creds": "Your credentials.json file ( \/config\/credentials.json )",
+                     "token_path": "Writable path ( \/config )"
+                }
+              },
+            "list": {
+            "title": "Your Tasks Lists",
+                "description": "Choose list(s) you want to add : {lists_added}",
+                "data": {
+                    "tasks_list": "All lists",
+                    "finish_choice": "Check to finish setup"
                 }
             }
         },
@@ -15,12 +31,14 @@
             "timeout": "Timeout validating code",
             "invalid_code": "Invalid code",
             "unknown": "Unknown error validating code",
-            "internal_error": "Internal error validating code"
+            "internal_error": "Internal error validating code",
+            "no_creds": "Credentials file is not found",
+            "no_token_path": "Token path is not found",
+            "no_list": "Choose one list at least"
         },
         "abort": {
-            "single_instance_allowed": "Only a single configuration of Blueprint is allowed.",
-            "already_setup": "You can only configure a single Nest account.",
-            "no_flows": "You need to configure Nest before being able to authenticate with it. [Please read the instructions](https://www.home-assistant.io/components/nest/).",
+            "single_instance_allowed": "Only a single configuration of Google Tasks is allowed.",
+            "already_setup": "You can only configure a single Google Tasks account.",
             "authorize_url_timeout": "Timeout generating authorize url.",
             "authorize_url_fail": "Unknown error generating an authorize url."
         }

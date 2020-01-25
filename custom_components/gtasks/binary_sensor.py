@@ -21,17 +21,19 @@ async def async_setup_platform(
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Setup sensor platform."""
-    async_add_devices([GtasksBinarySensor(hass, {})], True)
+    tasks_lists = hass.data[DOMAIN_DATA]["tasks_lists"]
+    for list in tasks_lists:
+        async_add_devices([GtasksBinarySensor(hass, {}, list)], True)
 
 
 class GtasksBinarySensor(BinarySensorDevice):
     """gtasks binary_sensor class."""
 
-    def __init__(self, hass, config):
+    def __init__(self, hass, config, list):
         self.hass = hass
         self.attr = {}
         self._status = False
-        self._list = hass.data[DOMAIN_DATA]["default_list"]
+        self._list = list
         self._name = '{}_{}'.format(config.get("name", DEFAULT_NAME),self._list)
         self._unique_id = '{}-{}-{}'.format(get_mac() , CONF_BINARY_SENSOR, self._name)
 
@@ -41,7 +43,7 @@ class GtasksBinarySensor(BinarySensorDevice):
         await self.hass.data[DOMAIN_DATA]["client"].update_data()
 
         # Get new data (if any)
-        passed_list = self.hass.data[DOMAIN_DATA].get(CONF_BINARY_SENSOR + "_data", None)
+        passed_list = self.hass.data[DOMAIN_DATA].get(self._list + CONF_BINARY_SENSOR + "_data", None)
         data = []
         # Check the data and update the value.
         if not passed_list or passed_list is None:
