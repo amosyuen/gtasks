@@ -7,6 +7,7 @@ https://github.com/BlueBlueBlob/gtasks
 import os
 import asyncio
 from datetime import timedelta, date, datetime
+import unicodedata
 import logging
 import voluptuous as vol
 from homeassistant import config_entries
@@ -156,6 +157,7 @@ async def async_setup_entry(hass, config_entry):
 
         _LOGGER.debug('task : {}'.format(task))
         try:
+            list = unicodedata.normalize('NFKD', list).encode('ascii','ignore').decode("utf-8")
             client._service.tasks().insert(tasklist=list_id, body=task).execute()
             asyncio.run_coroutine_threadsafe(entity_component.async_update_entity(
                 hass,
@@ -172,6 +174,7 @@ async def async_setup_entry(hass, config_entry):
         list_id = client.tasks_lists_id[list]
         service = client._service
         try:
+            list = unicodedata.normalize('NFKD', list).encode('ascii','ignore').decode("utf-8")
             task_id = client.gapi.get_task_id(list_id, task_name)
             task_to_complete = service.tasks().get(tasklist=list_id, task=task_id).execute()
             task_to_complete['status'] = 'completed'
