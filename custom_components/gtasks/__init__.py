@@ -43,7 +43,7 @@ from .const import (
     SERVICE_COMPLETE_TASK,
 )
 
-MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)
+MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=30)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -214,20 +214,22 @@ class GtasksData:
             self.tasks_lists_id[list] = self.gapi.get_taskslist_id(list)
         _LOGGER.debug('task list id : {}'.format(self.tasks_lists_id))
 
+    async def update_data(self, list_name):
+        request_sensor = self._service.tasks().list(tasklist=self.tasks_lists_id[list_name], showCompleted= False)
+        tag_sensor = list_name + CONF_SENSOR + "_data"
+        try:
+            tasks_list_sensor = await self.hass.async_add_executor_job(request_sensor.execute)
+            self.hass.data[DOMAIN_DATA][tag_sensor] = tasks_list_sensor.get('items', None)
+            _LOGGER.debug('tasks_list : {}'.format(tasks_list_sensor))
+        except Exception as e:
+            _LOGGER.exception(e)
+
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    async def update_data(self):
+    async def update_binary_data(self, list_name):
         today = date.today().strftime('%Y-%m-%dT00:00:00.000Z')
         for list in self.tasks_lists:
             request_binary_sensor = self._service.tasks().list(tasklist=self.tasks_lists_id[list], showCompleted=False, dueMax=today )
-            request_sensor = self._service.tasks().list(tasklist=self.tasks_lists_id[list], showCompleted= False)
             tag_binary = list + CONF_BINARY_SENSOR + "_data"
-            tag_sensor = list + CONF_SENSOR + "_data"
-            try:
-                tasks_list_sensor = await self.hass.async_add_executor_job(request_sensor.execute)
-                self.hass.data[DOMAIN_DATA][tag_sensor] = tasks_list_sensor.get('items', None)
-                _LOGGER.debug('tasks_list : {}'.format(tasks_list_sensor))
-            except Exception as e:
-                _LOGGER.exception(e)
             try:
                 tasks_list_binary = await self.hass.async_add_executor_job(request_binary_sensor.execute)
                 self.hass.data[DOMAIN_DATA][tag_binary] = tasks_list_binary.get('items', None)

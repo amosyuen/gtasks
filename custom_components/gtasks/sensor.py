@@ -43,7 +43,7 @@ class GtasksSensor(Entity):
     async def async_update(self):
         """Update the sensor."""
         # Send update "signal" to the component
-        await self.hass.data[DOMAIN_DATA]["client"].update_data()
+        await self.hass.data[DOMAIN_DATA]["client"].update_data(self._list)
 
         # Get new data (if any)
         task_list = self.hass.data[DOMAIN_DATA].get(self._list + CONF_SENSOR + "_data", None)

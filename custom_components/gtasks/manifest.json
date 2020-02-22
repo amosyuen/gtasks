@@ -8,7 +8,7 @@
     "@BlueBlueBlob"
   ],
   "requirements": [
-    "gtasks_api==0.0.7",
+    "gtasks_api==0.0.8",
     "integrationhelper"
   ],
   "homeassistant": "0.96.0"
