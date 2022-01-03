@@ -9,7 +9,8 @@
   ],
   "requirements": [
     "gtasks_api==0.0.8",
-    "integrationhelper"
+    "integrationhelper",
+    "google-auth-httplib2"
   ],
   "homeassistant": "0.96.0"
 }
