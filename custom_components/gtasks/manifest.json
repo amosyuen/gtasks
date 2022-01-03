@@ -12,5 +12,5 @@
     "integrationhelper",
     "google-auth-httplib2"
   ],
-  "homeassistant": "0.96.0"
+  "homeassistant": "2021.09.0"
 }
